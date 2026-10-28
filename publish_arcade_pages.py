@@ -7,8 +7,8 @@ Publishes static PWA `cyberlingo_arcade/` to 24/7 GitHub Pages:
   👉 https://truongduc164.github.io/cyberlingo-arcade/
 """
 
-import os
 import shutil
+import stat
 import subprocess
 import sys
 import time
@@ -27,6 +27,11 @@ WEB_DIR = PROJECT_ROOT / "cyberlingo_arcade"
 DEPLOY_DIR = PROJECT_ROOT / ".gh_pages_deploy"
 REPO_NAME = "cyberlingo-arcade"
 PERMANENT_URL = f"https://truongduc164.github.io/{REPO_NAME}/"
+
+
+def _force_rm_readonly(func, path, _):
+    Path(path).chmod(stat.S_IWRITE)
+    func(path)
 
 
 def get_github_creds():
@@ -57,7 +62,7 @@ def ensure_public_pages_repo(user: str, pat: str):
             headers=headers,
             json={
                 "name": REPO_NAME,
-                "description": "CyberLingo Arcade PRO — 4 Classic Chinese Voice Reflex Games (Static PWA Client) by DEAN OPTIMIZE",
+                "description": "CyberLingo Arcade PRO — 8 Classic Chinese Voice Reflex Games (Static PWA Client) by DEAN OPTIMIZE",
                 "private": False,
                 "has_issues": False,
                 "has_projects": False,
@@ -77,9 +82,17 @@ def publish():
     headers = ensure_public_pages_repo(user, pat)
 
     remote_url = f"https://github.com/{user}/{REPO_NAME}.git"
-    if DEPLOY_DIR.exists():
-        shutil.rmtree(DEPLOY_DIR)
     DEPLOY_DIR.mkdir(parents=True, exist_ok=True)
+
+    # Clean non-.git files inside DEPLOY_DIR
+    for child in DEPLOY_DIR.iterdir():
+        if child.name == ".git":
+            continue
+        if child.is_dir():
+            shutil.rmtree(child, onexc=_force_rm_readonly)
+        else:
+            child.chmod(stat.S_IWRITE)
+            child.unlink()
 
     for item in WEB_DIR.iterdir():
         dst = DEPLOY_DIR / item.name
@@ -101,16 +114,23 @@ def publish():
             raise RuntimeError(f"git {' '.join(args)} failed: {res.stderr}")
         return res
 
-    git(["init", "-b", "main"])
+    if not (DEPLOY_DIR / ".git").exists():
+        git(["init", "-b", "main"])
+        git(["remote", "add", "origin", remote_url])
+    else:
+        git(["remote", "set-url", "origin", remote_url])
+
     git(["config", "user.name", user])
     git(["config", "user.email", f"{user}@users.noreply.github.com"])
     git(["add", "-A"])
-    git(["commit", "-m", "deploy: CyberLingo Arcade PRO v1.0 static client"])
-    git(["remote", "add", "origin", remote_url])
-    git(["push", "--force", "origin", "main"])
-    print(f"[Pages] Pushed static client to {remote_url}")
+    status = git(["status", "--short"]).stdout.strip()
+    if status:
+        git(["commit", "-m", "deploy: CyberLingo Super Arcade PRO v2.0 (8-in-1 Legendary Classics)"])
+        git(["push", "--force", "origin", "main"])
+        print(f"[Pages] Pushed v2.0 update to {remote_url}")
+    else:
+        print("[Pages] Already up-to-date on GitHub Pages")
 
-    # Enable GitHub Pages on branch main / root
     pages_api = f"https://api.github.com/repos/{user}/{REPO_NAME}/pages"
     pr = requests.get(pages_api, headers=headers, timeout=15)
     if pr.status_code == 404:
@@ -122,18 +142,6 @@ def publish():
         )
         print(f"[Pages] Enabled GitHub Pages: HTTP {en.status_code}")
 
-    # Poll until GitHub Pages CDN serves HTTP 200
-    print(f"[Pages] Waiting for CDN activation at {PERMANENT_URL} ...")
-    for attempt in range(24):
-        try:
-            resp = requests.get(PERMANENT_URL, timeout=10)
-            if resp.status_code == 200 and "CYBERLINGO ARCADE" in resp.text:
-                print(f"[Pages] LIVE 200 OK at {PERMANENT_URL} ({len(resp.content)} bytes)!")
-                return PERMANENT_URL
-        except Exception:
-            pass
-        time.sleep(4)
-    print(f"[Pages] Deployed; CDN propagation may take ~30s: {PERMANENT_URL}")
     return PERMANENT_URL
 
 
