@@ -50,15 +50,14 @@ def main():
     img.save(qr_path)
 
     caption = (
-        "🕹️ <b>CYBERLINGO SUPER ARCADE v2.0 — ĐÃ LÊN KỆ ĐỦ 8 GAME HUYỀN THOẠI!</b>\n\n"
-        "🔥 <b>4 Siêu Phẩm Mới Cực Cuốn Vừa Ra Mắt:</b>\n"
-        "1️⃣ <b>🥷 Fruit Ninja Chém Quả:</b> Quẹt kiếm ánh sáng chém đôi quả Chữ Hán đúng, né bom nổ!\n"
-        "2️⃣ <b>🧱 Tetris Xếp Gạch Từ:</b> Thả khối Chữ Hán rơi trúng cột nghĩa Việt để nổ hàng & phá đá!\n"
-        "3️⃣ <b>👻 Pac-Man Mê Cung:</b> Lượn mê cung ăn ngọc từ đúng để hóa Siêu Cấp nuốt ngược Ma QC!\n"
-        "4️⃣ <b>🏐 Phá Gạch Arkanoid:</b> Đỡ bóng nảy phá tường gạch Chữ Hán & hứng viên nang nghĩa!\n\n"
-        "🌟 <b>Cùng 4 Game Kinh Điển:</b> 🔗 Pikachu • 🔨 Đập Chuột • 🐍 Rắn Ghép Câu • 👾 Bắn Tàu Galaga\n"
-        "🎖️ <i>Có thêm hệ thống Thăng Cấp EXP & 3 mức Tốc Độ (Thư giãn / Chuẩn / Cao thủ)!</i>\n\n"
-        f"👉 <a href=\"{PERMANENT_URL}?v=2\"><b>BẤM VÀO ĐÂY ĐỂ CHƠI THỬ NGAY</b></a>\n"
+        "🏆 <b>CHỐT TRỌN BỘ TOP 10 GAME KINH ĐIỂN LỒNG TIẾNG TRUNG (v3.0)!</b>\n\n"
+        "✨ <b>2 Mảnh Ghép Huyền Thoại Cuối Cùng Vừa Lên Kệ:</b>\n"
+        "1️⃣ <b>⛏️ Đào Vàng Chữ Hán (Gold Miner):</b> Canh góc phóng ngoạm kéo quặng vàng từ đúng, ném pháo 🧨 nổ đá sai!\n"
+        "2️⃣ <b>🥚 Bắn Trứng Âm Thanh (Dynomite):</b> Kéo tia ngắm dội tường bắn nổ chùm trứng Chữ Hán khớp nghĩa!\n\n"
+        "🕹️ <b>Trọn Bộ Top 10 Tinh Tuyển:</b>\n"
+        "⛏️ Đào Vàng • 🥚 Bắn Trứng • 🥷 Fruit Ninja • 🧱 Tetris • 👻 Pac-Man\n"
+        "🔗 Pikachu • 🐍 Rắn Ghép Câu • 🔨 Đập Chuột • 🏐 Arkanoid • 👾 Bắn Tàu\n\n"
+        f"👉 <a href=\"{PERMANENT_URL}?v=3\"><b>MỞ CHƠI TRỌN BỘ TOP 10 TẠI ĐÂY</b></a>\n"
         f"🔗 {PERMANENT_URL}"
     )
 
