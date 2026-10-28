@@ -37,28 +37,29 @@ def main():
         print("Missing Telegram credentials")
         return
 
+    live_v4 = f"{PERMANENT_URL}?v=4"
     qr = qrcode.QRCode(
         version=2,
         error_correction=qrcode.constants.ERROR_CORRECT_H,
         box_size=12,
         border=3,
     )
-    qr.add_data(PERMANENT_URL)
+    qr.add_data(live_v4)
     qr.make(fit=True)
-    img = qr.make_image(fill_color="#7c3aed", back_color="white")
+    img = qr.make_image(fill_color="#0284c7", back_color="white")
     qr_path = PROJECT_ROOT / "qr_cyberlingo_arcade.png"
     img.save(qr_path)
 
     caption = (
-        "🏆 <b>CHỐT TRỌN BỘ TOP 10 GAME KINH ĐIỂN LỒNG TIẾNG TRUNG (v3.0)!</b>\n\n"
-        "✨ <b>2 Mảnh Ghép Huyền Thoại Cuối Cùng Vừa Lên Kệ:</b>\n"
-        "1️⃣ <b>⛏️ Đào Vàng Chữ Hán (Gold Miner):</b> Canh góc phóng ngoạm kéo quặng vàng từ đúng, ném pháo 🧨 nổ đá sai!\n"
-        "2️⃣ <b>🥚 Bắn Trứng Âm Thanh (Dynomite):</b> Kéo tia ngắm dội tường bắn nổ chùm trứng Chữ Hán khớp nghĩa!\n\n"
-        "🕹️ <b>Trọn Bộ Top 10 Tinh Tuyển:</b>\n"
-        "⛏️ Đào Vàng • 🥚 Bắn Trứng • 🥷 Fruit Ninja • 🧱 Tetris • 👻 Pac-Man\n"
-        "🔗 Pikachu • 🐍 Rắn Ghép Câu • 🔨 Đập Chuột • 🏐 Arkanoid • 👾 Bắn Tàu\n\n"
-        f"👉 <a href=\"{PERMANENT_URL}?v=3\"><b>MỞ CHƠI TRỌN BỘ TOP 10 TẠI ĐÂY</b></a>\n"
-        f"🔗 {PERMANENT_URL}"
+        "💎 <b>NÂNG CẤP TOÀN DIỆN TOP 10 GAME — BẢN AAA RETINA & SMART SRS (v4.0)!</b>\n\n"
+        "🎨 <b>Đột Phá Ngoại Quan & Đồ Họa Retina Sắc Nét:</b>\n"
+        "• <b>HiDPI Retina 60FPS:</b> Chữ Hán & vector nét căng trên iPhone/Android (vàng 24K đa diện, trứng thủy tinh 3D, kiếm plasma 2 lớp, Ghost Block Tetris, tàu mẹ Boss Galaga, rắn khắc chữ Hán...)\n"
+        "• <b>Game Juice:</b> Chuông Combo tăng cao độ, viền lửa <b>⚡ FEVER MODE x5</b>, rung phản hồi Haptic & Tạm dừng ⏸.\n\n"
+        "🧠 <b>Tính Năng Nổi Bật Học Thông Minh:</b>\n"
+        "• <b>🎯 Phục Thù Từ Hay Sai (SRS):</b> Tự động ghi nhớ từ chọn nhầm & ưu tiên trộn lại vào game + <b>📖 Sổ Tay Flashcard</b> 1 chạm nghe loa!\n"
+        "• <b>🔥 Chuỗi Streak + Vòng Mục Tiêu 15 Từ + 3 Nhiệm Vụ Ngày</b> thưởng EXP tự động!\n\n"
+        f"👉 <a href=\"{live_v4}\"><b>MỞ TRẢI NGHIỆM BẢN v4.0 TẠI ĐÂY</b></a>\n"
+        f"🔗 {live_v4}"
     )
 
     url = f"https://api.telegram.org/bot{token}/sendPhoto"

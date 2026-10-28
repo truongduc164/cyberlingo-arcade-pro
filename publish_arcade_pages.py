@@ -125,9 +125,9 @@ def publish():
     git(["add", "-A"])
     status = git(["status", "--short"]).stdout.strip()
     if status:
-        git(["commit", "-m", "deploy: CyberLingo Arcade PRO v3.0 (Top 10 Definitive Classics)"])
+        git(["commit", "-m", "deploy: CyberLingo Arcade PRO v4.0 (AAA Retina Graphics + Smart SRS + Daily Quests)"])
         git(["push", "--force", "origin", "main"])
-        print(f"[Pages] Pushed v2.0 update to {remote_url}")
+        print(f"[Pages] Pushed v4.0 update to {remote_url}")
     else:
         print("[Pages] Already up-to-date on GitHub Pages")
 
